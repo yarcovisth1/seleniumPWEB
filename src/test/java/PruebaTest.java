@@ -14,159 +14,147 @@ import java.time.Duration;
 
 import java.util.concurrent.TimeUnit;
 
+
 public class PruebaTest {
-    /*Falta agregar comentario*/
+    /*Declaración del WebDriver para Firefox*/
     private WebDriver firefoxDriver;
-    /*Falta agregar comentario*/
+    /*Método que se ejecuta antes de cada test para inicializar el driver de Firefox*/
     @Before
     public void abrirDriver(){
         /*Encontrar la Ruta del geckodriver*/
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
         /*Configurar opciones para el navegador Firefox.*/
         FirefoxOptions options = new FirefoxOptions();
-        /*Falta agregar comentario*/
+        /*Inicializa el WebDriver con las opciones configuradas*/
         firefoxDriver = new FirefoxDriver(options);
-        /*Falta agregar comentario*/
+        /*Configura un tiempo de espera implícito para encontrar elementos*/
         firefoxDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-    /*Falta agregar comentario*/
+    /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
     public void hacerUnaConsulta() {
 
         /*Se utiliza para navegar a una URL específica */
         firefoxDriver.get("http://www.automationpractice.pl/");
-        /*Falta agregar comentario*/
+        /*Establece un tiempo de espera implícito antes de interactuar con elementos*/
         firefoxDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        /*Falta agregar comentario*/
+        /*Encuentra el botón de inicio de sesión en la página principal*/
         WebElement botonInicioSesion1 = firefoxDriver.findElement(By.xpath("//a[@class='login']"));
-        /*Falta agregar comentario*/
+        /*Hace clic en el botón de inicio de sesión*/
         botonInicioSesion1.click();
-        /*Falta agregar comentario*/
+        /*Encuentra el campo de email e ingresa el correo electrónico*/
         WebElement InputEmail = firefoxDriver.findElement(By.cssSelector("#email"));
                 InputEmail.sendKeys("yarcovisth2@gmail.com");
         WebElement InputPassword = firefoxDriver.findElement(By.cssSelector("#passwd"));
                 InputPassword.sendKeys("Luzelena1*");
         WebElement botonInicioSesion2 = firefoxDriver.findElement(By.xpath("//button[@id='SubmitLogin']"));
-        /*Falta agregar comentario*/
+        /*Hace clic en el botón de inicio de sesión después de ingresar las credenciales*/
         botonInicioSesion2.click();
 
-
-        /*Falta agregar comentario*/
+        /*Crea un WebDriverWait para esperar a que ciertos elementos estén visibles o sean clicables*/
         WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(10));
-        /*Falta agregar comentario*/
+        /*Espera hasta que el elemento 'Dresses' sea visible*/
         WebElement imagenDeCompra = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@title='Dresses'])[2]")));
-        /*Falta agregar comentario*/
+        /*Inicializa la clase Actions para realizar interacciones avanzadas con el ratón*/
         Actions accion = new Actions(firefoxDriver);
-        /*Falta agregar comentario*/
+        /*Mueve el ratón hacia el elemento 'imagenDeCompra'*/
         accion.moveToElement(imagenDeCompra).perform();
-        /*Falta agregar comentario*/
+        /*Espera hasta que el submenú 'Summer Dresses' sea visible*/
         WebElement summerDresses = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//a[@title='Summer Dresses'])[2]")));
-        /*Falta agregar comentario*/
+        /*Comprueba si el submenú 'Summer Dresses' es visible y hace clic si es así*/
         if (summerDresses.isDisplayed()) {
             System.out.println("La opción 'Summer Dresses' es visible.");
-            // Si es visible, puedes hacer clic en él si lo deseas
+            /* Si es visible, puedes hacer clic en él si lo deseas*/
             summerDresses.click();
         } else {
             System.out.println("La opción 'Summer Dresses' NO es visible.");
         }
-        /*Falta agregar comentario*/
+        /*Configura otro tiempo de espera implícito para garantizar la carga de la página*/
         firefoxDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        /*Falta agregar comentario*/
+        /*Encuentra la imagen del vestido de verano y hace clic en ella*/
         WebElement VestidoDeVerano = firefoxDriver.findElement(By.xpath("//img[@src='http://www.automationpractice.pl/img/p/1/6/16-home_default.jpg']"));
-        /*Falta agregar comentario*/
         VestidoDeVerano.click();
-        /*Falta agregar comentario*/
+        /*Encuentra el desplegable para seleccionar la talla*/
         WebElement selectElement = firefoxDriver.findElement(By.id("group_1"));
-        /*Falta agregar comentario*/
+        /*Inicializa el objeto Select para interactuar con el desplegable de la talla*/
         Select tallaSelect = new Select(selectElement);
-        /*Falta agregar comentario*/
+        /*Selecciona la talla "M" en el desplegable*/
         tallaSelect.selectByVisibleText("M");
-        /*Falta agregar comentario*/
+        /*Ejecuta un script de JavaScript para forzar el cambio en el desplegable*/
         JavascriptExecutor js = (JavascriptExecutor) firefoxDriver;
-        /*Falta agregar comentario*/
         js.executeScript("arguments[0].dispatchEvent(new Event('change'));", selectElement);
-        /*Falta agregar comentario*/
+        /*Encuentra el botón 'Add to Cart' y lo habilita usando JavaScript*/
         WebElement addToCartButton = firefoxDriver.findElement(By.xpath("//button[@name='Submit' and @class='exclusive']"));
-        /*Falta agregar comentario*/
         js.executeScript("arguments[0].style.display='block'; arguments[0].disabled=false;", addToCartButton);
-        /*Falta agregar comentario*/
-        WebDriverWait wait1 = new WebDriverWait(firefoxDriver, Duration.ofSeconds(10));
-        /*Falta agregar comentario*/
-        wait1.until(ExpectedConditions.elementToBeClickable(addToCartButton));
+       /*Falta agregar comentario: Espera hasta que el botón 'Add to Cart' esté clicable*/      /*Falta agregar comentario*/
+        wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
 
-               // Verifica si el botón es visible
+        /* Verifica si el botón es visible*/
         if (addToCartButton.isDisplayed()) {
-            // Haz clic en el botón
+            /* Haz clic en el botón */
            addToCartButton.click();
             System.out.println("El botón es visible.");
        } else {
             System.out.println("El botón no es visible.");
         }
-        /*Falta agregar comentario*/
-        WebDriverWait wait2 = new WebDriverWait(firefoxDriver, Duration.ofSeconds(10));
-        /*Falta agregar comentario*/
-        WebElement checkCheckout = wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='icon-check']")));
-        /*Falta agregar comentario*/
+        /*Espera hasta que aparezca el ícono de check de confirmación de compra*/
+        WebElement checkCheckout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//i[@class='icon-check']")));
+        /*Mueve el ratón hacia el ícono de check**/
         Actions accion1 = new Actions(firefoxDriver);
-        /*Falta agregar comentario*/
         accion1.moveToElement(checkCheckout).perform();
-        /*Falta agregar comentario*/
+        /*Espera hasta que la opción 'Proceed to checkout' sea visible*/
         WebElement ButtonCheckout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Proceed to checkout')]")));
-        /*Falta agregar comentario*/
+        /*Comprueba si la opción 'Proceed to checkout' es visible y hace clic si es así*/
         if (ButtonCheckout.isDisplayed()) {
             System.out.println("La opción 'Checkout' es visible.");
-            // Si es visible, puedes hacer clic en él si lo deseas
             ButtonCheckout.click();
         } else {
             System.out.println("La opción 'Checkout' NO es visible.");
         }
-        /*Falta agregar comentario*/
+        /*Encuentra y hace clic en los botones de 'Checkout' en los siguientes pasos del proceso*/
         WebElement ButtonCheckout1 = firefoxDriver.findElement(By.xpath("//a[@class='button btn btn-default standard-checkout button-medium']"));
-        /*Falta agregar comentario*/
         ButtonCheckout1.click();
-        /*Falta agregar comentario*/
         WebElement ButtonCheckout2 = firefoxDriver.findElement(By.xpath("//button[@type='submit']//span[contains(text(),'Proceed to checkout')]"));
-        /*Falta agregar comentario*/
         ButtonCheckout2.click();
-        /*Falta agregar comentario*/
         WebElement ButtonCheckout3 = firefoxDriver.findElement(By.xpath("//input[@id='cgv']"));
-        /*Falta agregar comentario*/
         ButtonCheckout3.click();
-        /*Falta agregar comentario*/
         WebElement ButtonCheckout4 = firefoxDriver.findElement(By.xpath("//button[@type='submit']//span[contains(text(),'Proceed to checkout')]"));
-        /*Falta agregar comentario*/
         ButtonCheckout4.click();
-        /*Falta agregar comentario*/
         WebElement ButtonCheckout5 = firefoxDriver.findElement(By.xpath("//a[@title='Pay by check.']"));
-        /*Falta agregar comentario*/
         ButtonCheckout5.click();
-        /*Falta agregar comentario*/
         WebElement ButtonCheckout6 = firefoxDriver.findElement(By.xpath("//span[contains(text(),'I confirm my order')]"));
-        /*Falta agregar comentario*/
         ButtonCheckout6.click();
-        /*Falta agregar comentario*/
+        /*Verifica si el banner de confirmación de la orden es visible y contiene el texto correcto*/
         WebElement bannerOrdenCompleta = firefoxDriver.findElement(By.xpath("//p[@class='alert alert-success']"));
-
-        /*Falta agregar comentario*/
+        /*Verifica si el banner de confirmación está visible*/
         if (bannerOrdenCompleta.isDisplayed()) {
+            /*Obtén el texto del banner de confirmación*/
             String bannerText = bannerOrdenCompleta.getText(); // Obtén el texto del banner
-
+            /*Verifica si el texto del banner contiene el mensaje esperado.*/
             if (bannerText.contains("Your order on My Shop is complete.")) {
+                /*Imprime un mensaje si el texto esperado se muestra correctamente*/
                 System.out.println("El mensaje 'Your order on My Shop is complete.' se muestra correctamente.");
+                /*Asegura que el texto del banner contenga el mensaje esperado*/
                 Assert.assertTrue("El mensaje esperado no se encontró en el banner.", bannerText.contains("Your order on My Shop is complete."));
+                /**/
             } else {
+                /*Imprime un mensaje si el banner está visible, pero el texto esperado no coincide*/
                 System.out.println("El banner está visible, pero el texto esperado no está presente.");
+                /*Falla la prueba si el texto esperado no se encuentra en el banner*/
                 Assert.fail("El texto esperado 'Your order on My Shop is complete.' no está en el banner.");
             }
+            /*Falta agregar comentario*/
         } else {
+            /*Imprime un mensaje si el banner no está visible*/
             System.out.println("El banner de confirmación no está visible.");
+            /*Falla la prueba si el banner de confirmación no se muestra */
             Assert.fail("El banner de confirmación no se mostró.");
         }
 
 
     }
 
-    /*Falta agregar comentario*/
+    /*Cierra el navegador y finaliza la sesión de WebDriver después de que la prueba haya terminado */
     @After
     public void cerrarDriver(){
         firefoxDriver.quit();
