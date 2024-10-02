@@ -70,26 +70,26 @@ public class PruebaTest {
     /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
     public void hacerUnaConsulta() {
-
+        /*Crea un WebDriverWait para esperar a que ciertos elementos estén visibles o sean clicables*/
+        WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
         /*Se utiliza para navegar a una URL específica */
         firefoxDriver.get(URL_TIENDA);
         /*Establece un tiempo de espera implícito antes de interactuar con elementos*/
-        firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);
+        /*firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);*/
         /*Encuentra el botón de inicio de sesión en la página principal*/
-        WebElement botonInicioSesion1 = firefoxDriver.findElement(By.xpath(XPATH_BOTON_INICIO_SESION));
+        WebElement botonInicioSesion1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_BOTON_INICIO_SESION)));
         /*Hace clic en el botón de inicio de sesión*/
         botonInicioSesion1.click();
         /*Encuentra el campo de email e ingresa el correo electrónico*/
-        WebElement inputEmail = firefoxDriver.findElement(By.cssSelector(CSS_SELECTOR_CAMPO_EMAIL));
+        WebElement inputEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(CSS_SELECTOR_CAMPO_EMAIL)));
                 inputEmail.sendKeys("yarcovisth2@gmail.com");
-        WebElement inputPassword = firefoxDriver.findElement(By.cssSelector(CSS_SELECTOR_CAMPO_PASSWORD));
+        WebElement inputPassword = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(CSS_SELECTOR_CAMPO_PASSWORD)));
                 inputPassword.sendKeys("Luzelena1*");
-        WebElement botonInicioSesion2 = firefoxDriver.findElement(By.xpath(XPATH_BOTON_SUBMIT_LOGIN));
+        WebElement botonInicioSesion2 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_BOTON_SUBMIT_LOGIN)));
         /*Hace clic en el botón de inicio de sesión después de ingresar las credenciales*/
         botonInicioSesion2.click();
 
-        /*Crea un WebDriverWait para esperar a que ciertos elementos estén visibles o sean clicables*/
-        WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
+
         /*Espera hasta que el elemento 'Dresses' sea visible*/
         WebElement imagenDeCompra = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_IMAGEN_DRESSES)));
         /*Inicializa la clase Actions para realizar interacciones avanzadas con el ratón*/
@@ -107,12 +107,12 @@ public class PruebaTest {
             System.out.println("La opción 'Summer Dresses' NO es visible.");
         }
         /*Configura otro tiempo de espera implícito para garantizar la carga de la página*/
-        firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);
+        /*firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);*/
         /*Encuentra la imagen del vestido de verano y hace clic en ella*/
-        WebElement vestidoDeVerano = firefoxDriver.findElement(By.xpath(XPATH_VESTIDO_DE_VERANO));
+        WebElement vestidoDeVerano = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_VESTIDO_DE_VERANO)));
         vestidoDeVerano.click();
         /*Encuentra el desplegable para seleccionar la talla*/
-        WebElement selectElement = firefoxDriver.findElement(By.id(ID_SELECT_ELEMENT));
+        WebElement selectElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(ID_SELECT_ELEMENT)));
         /*Inicializa el objeto Select para interactuar con el desplegable de la talla*/
         Select tallaSelect = new Select(selectElement);
         /*Selecciona la talla "M" en el desplegable*/
@@ -121,7 +121,7 @@ public class PruebaTest {
         JavascriptExecutor js = (JavascriptExecutor) firefoxDriver;
         js.executeScript(JS_FORCE_CHANGE_EVENT, selectElement);
         /*Encuentra el botón 'Add to Cart' y lo habilita usando JavaScript*/
-        WebElement addToCartButton = firefoxDriver.findElement(By.xpath(XPATH_ADD_TO_CART_BUTTON));
+        WebElement addToCartButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_ADD_TO_CART_BUTTON)));
         js.executeScript(JS_SHOW_BUTTON, addToCartButton);
        /*Falta agregar comentario: Espera hasta que el botón 'Add to Cart' esté clicable*/      /*Falta agregar comentario*/
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
@@ -148,20 +148,20 @@ public class PruebaTest {
             System.out.println("La opción 'Checkout' NO es visible.");
         }
         /*Encuentra y hace clic en los botones de 'Checkout' en los siguientes pasos del proceso*/
-        WebElement buttonCheckout1 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT1));
+        WebElement buttonCheckout1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT1)));
         buttonCheckout1.click();
-        WebElement buttonCheckout2 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT2));
+        WebElement buttonCheckout2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT2)));
         buttonCheckout2.click();
-        WebElement buttonCheckout3 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT3));
+        WebElement buttonCheckout3 = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT3)));
         buttonCheckout3.click();
-        WebElement buttonCheckout4 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT4));
+        WebElement buttonCheckout4 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT4)));
         buttonCheckout4.click();
-        WebElement buttonCheckout5 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT5));
+        WebElement buttonCheckout5 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT5)));
         buttonCheckout5.click();
-        WebElement buttonCheckout6 = firefoxDriver.findElement(By.xpath(XPATH_BUTTON_CHECKOUT6));
+        WebElement buttonCheckout6 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT6)));
         buttonCheckout6.click();
         /*Verifica si el banner de confirmación de la orden es visible y contiene el texto correcto*/
-        WebElement bannerOrdenCompleta = firefoxDriver.findElement(By.xpath(XPATH_BANNER_ORDEN_COMPLETA));
+        WebElement bannerOrdenCompleta = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BANNER_ORDEN_COMPLETA)));
         /*Verifica si el banner de confirmación está visible*/
         if (bannerOrdenCompleta.isDisplayed()) {
             /*Obtén el texto del banner de confirmación*/
