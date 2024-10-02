@@ -13,11 +13,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 
 public class PruebaTest {
     /*Declaración del WebDriver para Firefox  (Pagina uno)*/
+    private WebDriverWait wait;
     private WebDriver firefoxDriver;
     public static final String URL_TIENDA = "http://www.automationpractice.pl/";
     private static final String XPATH_BOTON_INICIO_SESION = "//a[@class='login']";
@@ -31,8 +31,6 @@ public class PruebaTest {
     private static final String XPATH_SUMMER_DRESSES = "(//a[@title='Summer Dresses'])[2]";
 
     /*Pagina Cuatro*/
-    private static final int IMPLICIT_WAIT_TIME = 10;
-    private static final TimeUnit TIME_UNIT = TimeUnit.SECONDS;
     private static final String XPATH_VESTIDO_DE_VERANO = "//img[@src='http://www.automationpractice.pl/img/p/1/6/16-home_default.jpg']";
     /*Pagina Quinta*/
     private static final String ID_SELECT_ELEMENT = "group_1";
@@ -65,17 +63,16 @@ public class PruebaTest {
         /*Inicializa el WebDriver con las opciones configuradas*/
         firefoxDriver = new FirefoxDriver(options);
         /*Configura un tiempo de espera implícito para encontrar elementos*/
-        firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);
+        wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
     }
     /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
     public void hacerUnaConsulta() {
         /*Crea un WebDriverWait para esperar a que ciertos elementos estén visibles o sean clicables*/
-        WebDriverWait wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
+        wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
         /*Se utiliza para navegar a una URL específica */
         firefoxDriver.get(URL_TIENDA);
         /*Establece un tiempo de espera implícito antes de interactuar con elementos*/
-        /*firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);*/
         /*Encuentra el botón de inicio de sesión en la página principal*/
         WebElement botonInicioSesion1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_BOTON_INICIO_SESION)));
         /*Hace clic en el botón de inicio de sesión*/
@@ -107,7 +104,6 @@ public class PruebaTest {
             System.out.println("La opción 'Summer Dresses' NO es visible.");
         }
         /*Configura otro tiempo de espera implícito para garantizar la carga de la página*/
-        /*firefoxDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT_TIME, TIME_UNIT);*/
         /*Encuentra la imagen del vestido de verano y hace clic en ella*/
         WebElement vestidoDeVerano = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_VESTIDO_DE_VERANO)));
         vestidoDeVerano.click();
