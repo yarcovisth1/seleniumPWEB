@@ -1,13 +1,10 @@
-import org.junit.After;
+package tests;
+
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -15,10 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class PruebaTest {
-    /*Declaración del WebDriver para Firefox  (Pagina uno)*/
-    private WebDriverWait wait;
-    private WebDriver firefoxDriver;
+public class Compra extends GlobalTestSetup{
+
+
     public static final String URL_TIENDA = "http://www.automationpractice.pl/";
     private static final String XPATH_BOTON_INICIO_SESION = "//a[@class='login']";
     private static final String CSS_SELECTOR_CAMPO_EMAIL = "#email";
@@ -26,7 +22,6 @@ public class PruebaTest {
     private static final String XPATH_BOTON_SUBMIT_LOGIN = "//button[@id='SubmitLogin']";
 
     /*Pagina dos*/
-    private static final int TIMEOUT_IN_SECONDS = 10;
     private static final String XPATH_IMAGEN_DRESSES = "(//a[@title='Dresses'])[2]";
     private static final String XPATH_SUMMER_DRESSES = "(//a[@title='Summer Dresses'])[2]";
 
@@ -53,18 +48,7 @@ public class PruebaTest {
 
 
 
-    /*Método que se ejecuta antes de cada test para inicializar el driver de Firefox*/
-    @Before
-    public void abrirDriver(){
-        /*Encontrar la Ruta del geckodriver*/
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
-        /*Configurar opciones para el navegador Firefox.*/
-        FirefoxOptions options = new FirefoxOptions();
-        /*Inicializa el WebDriver con las opciones configuradas*/
-        firefoxDriver = new FirefoxDriver(options);
-        /*Configura un tiempo de espera implícito para encontrar elementos*/
-        wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
-    }
+
     /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
     public void hacerUnaConsulta() {
@@ -186,11 +170,7 @@ public class PruebaTest {
 
     }
 
-    /*Cierra el navegador y finaliza la sesión de WebDriver después de que la prueba haya terminado */
-    @After
-    public void cerrarDriver(){
-        firefoxDriver.quit();
-    }
+
 }
 
 
