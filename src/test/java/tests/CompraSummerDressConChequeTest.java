@@ -15,7 +15,7 @@ import java.time.Duration;
 public class CompraSummerDressConChequeTest extends GlobalTestSetup{
 
     public static final String URL_TIENDA = "http://www.automationpractice.pl/";
-    private static final String XPATH_BOTON_INICIO_SESION = "//a[@class='login']";
+    public static final String XPATH_BOTON_PAGINA_PRINCIPAL = "//a[@class='login']";
     private static final String CSS_SELECTOR_CAMPO_EMAIL = "#email";
     private static final String CSS_SELECTOR_CAMPO_PASSWORD = "#passwd";
     private static final String XPATH_BOTON_SUBMIT_LOGIN = "//button[@id='SubmitLogin']";
@@ -56,9 +56,10 @@ public class CompraSummerDressConChequeTest extends GlobalTestSetup{
         firefoxDriver.get(URL_TIENDA);
         /*Establece un tiempo de espera implícito antes de interactuar con elementos*/
         /*Encuentra el botón de inicio de sesión en la página principal*/
-        WebElement botonInicioSesion1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_BOTON_INICIO_SESION)));
+        paginaPrincipal.irASignIn();
+        //WebElement botonPaginaPrincipal = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_BOTON_PAGINA_PRINCIPAL)));
         /*Hace clic en el botón de inicio de sesión*/
-        botonInicioSesion1.click();
+        //botonPaginaPrincipal.click();
         /*Encuentra el campo de email e ingresa el correo electrónico*/
         WebElement inputEmail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(CSS_SELECTOR_CAMPO_EMAIL)));
                 inputEmail.sendKeys("yarcovisth2@gmail.com");

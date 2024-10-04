@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageObjects.PaginaPrincipal;
 
 import java.time.Duration;
 
@@ -16,6 +17,11 @@ public class GlobalTestSetup {
     protected WebDriverWait wait;
     protected WebDriver firefoxDriver;
     protected static final int TIMEOUT_IN_SECONDS = 10;
+    PaginaPrincipal paginaPrincipal;
+
+    private void inicializarPaginas(WebDriver driver){
+    paginaPrincipal = new PaginaPrincipal(driver);
+    }
 
     /*Método que se ejecuta antes de cada test para inicializar el driver de Firefox*/
     @Before
@@ -28,6 +34,7 @@ public class GlobalTestSetup {
         firefoxDriver = new FirefoxDriver(options);
         /*Configura un tiempo de espera implícito para encontrar elementos*/
         wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
+        inicializarPaginas(firefoxDriver);
     }
 
     /*Cierra el navegador y finaliza la sesión de WebDriver después de que la prueba haya terminado */
