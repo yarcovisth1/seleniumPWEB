@@ -5,10 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-//import static tests.CompraSummerDressConChequeTest.XPATH_BOTON_PAGINA_PRINCIPAL;
+import static tests.CompraSummerDressConChequeTest.XPATH_BOTON_PAGINA_PRINCIPAL;
 
 public class PaginaPrincipal {
-    @FindBy(xpath = "//a[@class='login']")
+    @FindBy(xpath = XPATH_BOTON_PAGINA_PRINCIPAL)
     private WebElement botonPaginaPrincipal;
 
     public void irASignIn(){
