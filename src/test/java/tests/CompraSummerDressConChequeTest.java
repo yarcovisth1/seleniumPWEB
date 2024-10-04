@@ -1,6 +1,6 @@
 package tests;
 
-import org.junit.Assert;
+import controlflows.IfConditions;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,8 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 
-public class Compra extends GlobalTestSetup{
-
+public class CompraSummerDressConChequeTest extends GlobalTestSetup{
 
     public static final String URL_TIENDA = "http://www.automationpractice.pl/";
     private static final String XPATH_BOTON_INICIO_SESION = "//a[@class='login']";
@@ -46,8 +45,7 @@ public class Compra extends GlobalTestSetup{
     private static final String XPATH_BUTTON_CHECKOUT6 = "//span[contains(text(),'I confirm my order')]";
     private static final String XPATH_BANNER_ORDEN_COMPLETA = "//p[@class='alert alert-success']";
 
-
-
+    private IfConditions ifConditions = new IfConditions();
 
     /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
@@ -70,7 +68,6 @@ public class Compra extends GlobalTestSetup{
         /*Hace clic en el botón de inicio de sesión después de ingresar las credenciales*/
         botonInicioSesion2.click();
 
-
         /*Espera hasta que el elemento 'Dresses' sea visible*/
         WebElement imagenDeCompra = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_IMAGEN_DRESSES)));
         /*Inicializa la clase Actions para realizar interacciones avanzadas con el ratón*/
@@ -80,13 +77,7 @@ public class Compra extends GlobalTestSetup{
         /*Espera hasta que el submenú 'Summer Dresses' sea visible*/
         WebElement summerDresses = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_SUMMER_DRESSES)));
         /*Comprueba si el submenú 'Summer Dresses' es visible y hace clic si es así*/
-        if (summerDresses.isDisplayed()) {
-            System.out.println("La opción 'Summer Dresses' es visible.");
-            /* Si es visible, puedes hacer clic en él si lo deseas*/
-            summerDresses.click();
-        } else {
-            System.out.println("La opción 'Summer Dresses' NO es visible.");
-        }
+        ifConditions.clickIfVisible(summerDresses, "Submenu Summer Dresses");
         /*Configura otro tiempo de espera implícito para garantizar la carga de la página*/
         /*Encuentra la imagen del vestido de verano y hace clic en ella*/
         WebElement vestidoDeVerano = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_VESTIDO_DE_VERANO)));
@@ -105,15 +96,8 @@ public class Compra extends GlobalTestSetup{
         js.executeScript(JS_SHOW_BUTTON, addToCartButton);
        /*Falta agregar comentario: Espera hasta que el botón 'Add to Cart' esté clicable*/      /*Falta agregar comentario*/
         wait.until(ExpectedConditions.elementToBeClickable(addToCartButton));
-
+        ifConditions.clickIfVisible(addToCartButton, "Boton add Carr Button " );
         /* Verifica si el botón es visible*/
-        if (addToCartButton.isDisplayed()) {
-            /* Haz clic en el botón */
-           addToCartButton.click();
-            System.out.println("El botón es visible.");
-       } else {
-            System.out.println("El botón no es visible.");
-        }
         /*Espera hasta que aparezca el ícono de check de confirmación de compra*/
         WebElement checkCheckout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_ICON_CHECK)));
         /*Mueve el ratón hacia el ícono de check**/
@@ -121,12 +105,7 @@ public class Compra extends GlobalTestSetup{
         /*Espera hasta que la opción 'Proceed to checkout' sea visible*/
         WebElement buttonCheckout = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT)));
         /*Comprueba si la opción 'Proceed to checkout' es visible y hace clic si es así*/
-        if (buttonCheckout.isDisplayed()) {
-            System.out.println("La opción 'Checkout' es visible.");
-            buttonCheckout.click();
-        } else {
-            System.out.println("La opción 'Checkout' NO es visible.");
-        }
+       ifConditions.clickIfVisible(buttonCheckout, "CheckOut");
         /*Encuentra y hace clic en los botones de 'Checkout' en los siguientes pasos del proceso*/
         WebElement buttonCheckout1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BUTTON_CHECKOUT1)));
         buttonCheckout1.click();
@@ -143,34 +122,8 @@ public class Compra extends GlobalTestSetup{
         /*Verifica si el banner de confirmación de la orden es visible y contiene el texto correcto*/
         WebElement bannerOrdenCompleta = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(XPATH_BANNER_ORDEN_COMPLETA)));
         /*Verifica si el banner de confirmación está visible*/
-        if (bannerOrdenCompleta.isDisplayed()) {
-            /*Obtén el texto del banner de confirmación*/
-            String bannerText = bannerOrdenCompleta.getText(); // Obtén el texto del banner
-            /*Verifica si el texto del banner contiene el mensaje esperado.*/
-            if (bannerText.contains("Your order on My Shop is complete.")) {
-                /*Imprime un mensaje si el texto esperado se muestra correctamente*/
-                System.out.println("El mensaje 'Your order on My Shop is complete.' se muestra correctamente.");
-                /*Asegura que el texto del banner contenga el mensaje esperado*/
-                Assert.assertTrue("El mensaje esperado no se encontró en el banner.", bannerText.contains("Your order on My Shop is complete."));
-                /**/
-            } else {
-                /*Imprime un mensaje si el banner está visible, pero el texto esperado no coincide*/
-                System.out.println("El banner está visible, pero el texto esperado no está presente.");
-                /*Falla la prueba si el texto esperado no se encuentra en el banner*/
-                Assert.fail("El texto esperado 'Your order on My Shop is complete.' no está en el banner.");
-            }
-            /*Falta agregar comentario*/
-        } else {
-            /*Imprime un mensaje si el banner no está visible*/
-            System.out.println("El banner de confirmación no está visible.");
-            /*Falla la prueba si el banner de confirmación no se muestra */
-            Assert.fail("El banner de confirmación no se mostró.");
-        }
-
-
+        ifConditions.validateBannerText(bannerOrdenCompleta, "Your order on My Shop is complete.");
     }
-
-
 }
 
 
