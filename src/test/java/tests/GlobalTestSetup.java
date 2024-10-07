@@ -34,13 +34,13 @@ public class GlobalTestSetup {
         firefoxDriver = new FirefoxDriver(options);
         /*Configura un tiempo de espera implícito para encontrar elementos*/
         wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
-        inicializarPaginas(firefoxDriver);
+       inicializarPaginas(firefoxDriver);
     }
 
     /*Cierra el navegador y finaliza la sesión de WebDriver después de que la prueba haya terminado */
-    @After
-    public void cerrarDriver(){
+   @After
+   public void cerrarDriver(){
         firefoxDriver.quit();
-    }
+   }
 }
 
