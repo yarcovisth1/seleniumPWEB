@@ -86,15 +86,4 @@ public class IfConditions {
             System.out.println("No se pudo interactuar con el elemento '" + elementName + "' debido a un error: " + e.getMessage());
         }
     }
-
-
-    public void validar (WebElement elementName, String expectedText,boolean isClickable) {
-        if (elementName.isDisplayed() && elementName.isEnabled() && isClickable) {
-            elementName.click();
-            System.out.println("El elemento '" + elementName + "' de la "+expectedText+" se muestra y esta habilitado");
-        } else {
-            System.out.println("El elemento '" + elementName + "' de la "+expectedText+" no se muestra y no esta habilitado");
-        }
-    }
-
 }
