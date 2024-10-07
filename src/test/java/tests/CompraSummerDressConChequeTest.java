@@ -42,7 +42,7 @@ public class CompraSummerDressConChequeTest extends GlobalTestSetup{
     private static final String XPATH_BUTTON_CHECKOUT6 = "//span[contains(text(),'I confirm my order')]";
     private static final String XPATH_BANNER_ORDEN_COMPLETA = "//p[@class='alert alert-success']";
     private IfConditions ifConditions = new IfConditions();
-    private WhileConditions whileConditions = new WhileConditions(firefoxDriver);
+    private WhileConditions whileConditions = new WhileConditions();
 
     /* Método que contiene el test para realizar una compra en la tienda*/
     @Test
