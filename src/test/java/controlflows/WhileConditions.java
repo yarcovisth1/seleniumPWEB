@@ -1,9 +1,19 @@
 package controlflows;
-
 import org.openqa.selenium.WebElement;
 
+/**
+ * The type While conditions.
+ */
 public class WhileConditions {
 
+    /**
+     * Click when clickable.
+     *
+     * @param elementName      the element name
+     * @param expectedText     the expected text
+     * @param isClickable      the is clickable
+     * @param timeoutInSeconds the timeout in seconds
+     */
     public void clickWhenClickable(WebElement elementName, String expectedText, boolean isClickable, int timeoutInSeconds) {
         int attempts = 0;
         boolean elementClicked = false;
@@ -35,5 +45,4 @@ public class WhileConditions {
             System.out.println("El elemento '" + expectedText + "' no se pudo clicar después de " + timeoutInSeconds + " segundos.");
         }
     }
-
 }
