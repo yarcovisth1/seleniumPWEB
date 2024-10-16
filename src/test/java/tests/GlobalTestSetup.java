@@ -1,24 +1,28 @@
 package tests;
 import org.junit.After;
 import org.junit.Before;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObjects.*;
 import java.time.Duration;
 
 /**
- * Esta clase configura el entorno de pruebas para Selenium.
+ * <p>Esta clase configura el entorno de pruebas para Selenium.</p>
  *
- * === Descripción ===
- * Inicializa el WebDriver y las páginas de la aplicación necesarias
- * para ejecutar las pruebas. Contiene métodos que se ejecutan antes
- * y después de cada prueba.
+ * <h2>Descripción</h2>
+ * <p>Inicializa el <b>WebDriver</b> y las páginas de la aplicación necesarias
+ * para ejecutar las pruebas. Contiene métodos que se ejecutan antes y después
+ * de cada prueba.</p>
  *
- * === Métodos ===
- * - abrirDriver: Configura y abre el navegador antes de cada prueba.
- * - cerrarDriver: Cierra el navegador después de cada prueba.
+ * <h2>Métodos</h2>
+ * <ul>
+ *   <li><b>abrirDriver</b>: Configura y abre el navegador antes de cada prueba.</li>
+ *   <li><b>cerrarDriver</b>: Cierra el navegador después de cada prueba.</li>
+ * </ul>
  *
  * @author Trinitron
  */
@@ -54,13 +58,19 @@ import java.time.Duration;
  * @see pageObjects.PaginaSummerDresses
  */
 public class GlobalTestSetup {
+    protected Actions accion;
     /** Objeto para gestionar las esperas explícitas. */
     protected WebDriverWait wait;
     /** Instancia del WebDriver para el navegador Firefox. */
     protected WebDriver firefoxDriver;
     /** Tiempo máximo de espera en segundos para las condiciones explícitas. */
     protected static final int TIMEOUT_IN_SECONDS = 10;
-
+    /**
+     * URL de la tienda en línea donde se realizarán las pruebas.
+     *
+     * @value "http://www.automationpractice.pl/"
+     */
+    public static final String URL_TIENDA = "http://www.automationpractice.pl/";
     // Instancias de las diferentes páginas del flujo de la aplicación.
     PaginaPrincipal paginaPrincipal;
     PaginaLogin paginaLogin;
@@ -86,11 +96,17 @@ public class GlobalTestSetup {
      */
     @Before
     public void abrirDriver(){
-        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
+        System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
         FirefoxOptions options = new FirefoxOptions();
         firefoxDriver = new FirefoxDriver(options);
+        /*Establecer el tiempo de espera y abrir la URL de la tienda */
         wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
+        firefoxDriver.get(URL_TIENDA);
+        /*Configura el tamaño de la ventana del navegador */
+        Dimension newSize = new Dimension(1200, 3000);
+        firefoxDriver.manage().window().setSize(newSize);
         inicializarPaginas(firefoxDriver);
+        accion = new Actions(firefoxDriver);
     }
     /**
      * Cierra el navegador después de cada prueba.

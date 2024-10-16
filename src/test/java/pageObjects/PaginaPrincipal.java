@@ -23,7 +23,7 @@ import org.openqa.selenium.support.PageFactory;
  */
 public class PaginaPrincipal {
     /** Nombre de la clase CSS para el botón de login en la página principal. */
-    public static final String CLASSNAME_BOTON_PAGINA_PRINCIPAL = "login";
+    private static final String CLASSNAME_BOTON_PAGINA_PRINCIPAL = "login";
 
     @FindBy(className = "login")
     private WebElement botonPaginaPrincipal;

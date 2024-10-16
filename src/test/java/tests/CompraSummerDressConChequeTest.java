@@ -3,11 +3,7 @@ import controlflows.ForConditions;
 import controlflows.IfConditions;
 import controlflows.WhileConditions;
 import org.junit.Test;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-
 /**
  * Realiza pruebas automatizadas para la compra de un vestido de verano.
  *
@@ -24,15 +20,7 @@ import java.time.Duration;
  * @see WhileConditions
  * @see ForConditions
  */
-
 public class CompraSummerDressConChequeTest extends GlobalTestSetup{
-
-    /**
-     * URL de la tienda en línea donde se realizarán las pruebas.
-     *
-     * @value "http://www.automationpractice.pl/"
-     */
-    public static final String URL_TIENDA = "http://www.automationpractice.pl/";
     /**
      * Script JavaScript que muestra un botón en la página.
      *
@@ -98,12 +86,6 @@ public class CompraSummerDressConChequeTest extends GlobalTestSetup{
 
     @Test
     public void hacerUnaConsulta() {
-        /*Establecer el tiempo de espera y abrir la URL de la tienda */
-        wait = new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
-        firefoxDriver.get(URL_TIENDA);
-        /*Configurar el tamaño de la ventana del navegador */
-        Dimension newSize = new Dimension(1200, 3000);
-        firefoxDriver.manage().window().setSize(newSize);
         /* Navegar a la página de inicio de sesión */
         paginaPrincipal.irASignIn();
         whileConditions.clickWhenClickable(paginaPrincipal.irASignIn(),"Pagina Principal",true,10);
@@ -112,7 +94,6 @@ public class CompraSummerDressConChequeTest extends GlobalTestSetup{
         whileConditions.clickWhenClickable(paginaLogin.hacerLogin("Correo Lleno","Contraseña LLena"),"o Boton de Inicio de Sesion ",true,10);
         /*Seleccionar vestido de verano */
         paginaSummerDresses.seleccionarSummerDresses();
-        Actions accion = new Actions(firefoxDriver);
         forConditions.moveAndClickVisibleElements(paginaSummerDresses.seleccionarSummerDresses(),accion,"Accion Atributo summer Dressess");
         forConditions.clickIfVisibleElements(paginaSummerDresses.seleccionarSummerDresses(),accion,"Atributo Summer Dressess");
         forConditions.clickLocatedElement(paginaSummerDresses.seleccionarSummerDresses(),accion,"Imagen del vestido",10);
