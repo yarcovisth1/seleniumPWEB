@@ -9,16 +9,18 @@ import pageObjects.*;
 import java.time.Duration;
 
 /**
- * Esta clase configura el entorno de pruebas para Selenium.
+ * <p>Esta clase configura el entorno de pruebas para Selenium.</p>
  *
- * === Descripción ===
- * Inicializa el WebDriver y las páginas de la aplicación necesarias
- * para ejecutar las pruebas. Contiene métodos que se ejecutan antes
- * y después de cada prueba.
+ * <h2>Descripción</h2>
+ * <p>Inicializa el <b>WebDriver</b> y las páginas de la aplicación necesarias
+ * para ejecutar las pruebas. Contiene métodos que se ejecutan antes y después
+ * de cada prueba.</p>
  *
- * === Métodos ===
- * - abrirDriver: Configura y abre el navegador antes de cada prueba.
- * - cerrarDriver: Cierra el navegador después de cada prueba.
+ * <h2>Métodos</h2>
+ * <ul>
+ *   <li><b>abrirDriver</b>: Configura y abre el navegador antes de cada prueba.</li>
+ *   <li><b>cerrarDriver</b>: Cierra el navegador después de cada prueba.</li>
+ * </ul>
  *
  * @author Trinitron
  */
