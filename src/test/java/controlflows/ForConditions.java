@@ -8,18 +8,31 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
-
 /**
- * The type For conditions.
+ * Clase que gestiona flujos de control para condiciones específicas en pruebas automatizadas con Selenium.
+ * <p>Proporciona diferentes métodos para interactuar con listas de elementos, incluyendo acciones como mover, hacer clic,
+ * y manejar condiciones de visibilidad y clicabilidad.</p>
+ *
+ * <h2>Métodos principales:</h2>
+ * <ul>
+ *     <li>{@link #moveAndClickVisibleElements(List, Actions, String)}: Mueve y hace clic en los elementos visibles.</li>
+ *     <li>{@link #clickIfVisibleElements(List, Actions, String)}: Hace clic en los elementos si son visibles.</li>
+ *     <li>{@link #clickIfVisibleElements(List, Actions, String, int)}: Hace clic con un tiempo límite para cada intento.</li>
+ *     <li>{@link #clickLocatedElement(List, Actions, String, int)}: Hace clic si los elementos son visibles y habilitados.</li>
+ *     <li>{@link #clickLocatedElementsSequentially(List, Actions, String[], WebDriver, int)}: Interactúa con elementos en orden secuencial.</li>
+ * </ul>
+ *
+ * @author trinitron
+ * @since 1.0
  */
 public class ForConditions {
 
     /**
-     * Move and click visible elements.
+     * Mueve y hace clic en los elementos visibles de la lista proporcionada.
      *
-     * @param elements    the elements
-     * @param action      the action
-     * @param elementName the element name
+     * @param elements    Lista de elementos Web.
+     * @param action      Objeto {@link Actions} para realizar las acciones.
+     * @param elementName Nombre descriptivo del elemento.
      */
     public void moveAndClickVisibleElements(List<WebElement> elements, Actions action, String elementName) {
         for (WebElement element : elements) {
@@ -35,13 +48,12 @@ public class ForConditions {
             }
         }
     }
-
     /**
-     * Click if visible elements.
+     * Hace clic en los elementos si son visibles.
      *
-     * @param elements    the elements
-     * @param action      the action
-     * @param elementName the element name
+     * @param elements    Lista de elementos Web.
+     * @param action      Objeto {@link Actions} para realizar la acción de clic.
+     * @param elementName Nombre del elemento.
      */
     public void clickIfVisibleElements(List<WebElement> elements, Actions action, String elementName) {
         for (WebElement element : elements) {
@@ -58,14 +70,13 @@ public class ForConditions {
             }
         }
     }
-
     /**
-     * Click if visible elements.
+     * Hace clic en los elementos si son visibles, con un tiempo límite para cada intento.
      *
-     * @param elements         the elements
-     * @param action           the action
-     * @param elementName      the element name
-     * @param timeoutInSeconds the timeout in seconds
+     * @param elements         Lista de elementos Web.
+     * @param action           Objeto {@link Actions} para realizar la acción.
+     * @param elementName      Nombre del elemento.
+     * @param timeoutInSeconds Tiempo límite en segundos para cada intento.
      */
     public void clickIfVisibleElements(List<WebElement> elements, Actions action, String elementName, int timeoutInSeconds) {
         boolean elementClicked = false;
@@ -97,14 +108,13 @@ public class ForConditions {
             }
         }
     }
-
     /**
-     * Click located element.
+     * Hace clic en los elementos visibles y habilitados, con reintentos limitados.
      *
-     * @param elements         the elements
-     * @param action           the action
-     * @param elementName      the element name
-     * @param timeoutInSeconds the timeout in seconds
+     * @param elements         Lista de elementos Web.
+     * @param action           Objeto {@link Actions} para realizar la acción.
+     * @param elementName      Nombre del elemento.
+     * @param timeoutInSeconds Tiempo límite en segundos para cada intento.
      */
     public void clickLocatedElement(List<WebElement> elements, Actions action, String elementName, int timeoutInSeconds) {
         int attempts = 0;
@@ -138,16 +148,14 @@ public class ForConditions {
             elementClicked = false;
         }
     }
-
-
     /**
-     * Click located elements sequentially.
+     * Interactúa con los elementos de forma secuencial según los XPaths proporcionados.
      *
-     * @param elements         the elements
-     * @param action           the action
-     * @param elementNames     the element names
-     * @param driver           the driver
-     * @param timeoutInSeconds the timeout in seconds
+     * @param elements         Lista de elementos Web.
+     * @param action           Objeto {@link Actions} para realizar la acción.
+     * @param elementNames     Nombres de los elementos.
+     * @param driver           Objeto {@link WebDriver} para manejar el navegador.
+     * @param timeoutInSeconds Tiempo límite para cada intento.
      */
     public void clickLocatedElementsSequentially(List<WebElement> elements, Actions action,
                                                  String[] elementNames, WebDriver driver, int timeoutInSeconds) {
@@ -205,5 +213,4 @@ public class ForConditions {
             }
         }
     }
-
 }

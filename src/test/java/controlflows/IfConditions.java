@@ -4,22 +4,50 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
-
 /**
- * The type If conditions.
+ * <p>
+ * La clase <b>{@code IfConditions}</b> contiene métodos para realizar acciones
+ * condicionales en elementos web, como seleccionar opciones de un dropdown y
+ * hacer clic en botones de manera dinámica. Se usa para manejar condiciones complejas
+ * de elementos que pueden ser clickeables o habilitados solo en ciertos escenarios.
+ * </p>
  */
 public class IfConditions {
-
     /**
-     * Select dropdown and force change.
+     * <p>
+     * Selecciona una talla de un <i>dropdown</i> y fuerza el cambio de evento mediante
+     * JavaScript. Reintenta hasta que el botón "Agregar al carrito" esté habilitado
+     * o se agoten las opciones disponibles.
+     * </p>
      *
-     * @param elements         the elements
-     * @param driver           the driver
-     * @param jsScript         the js script
-     * @param timeoutInSeconds the timeout in seconds
+     * <h3>Parámetros:</h3>
+     * <ul>
+     *   <li><b>elements</b>: Lista de elementos web donde el primer elemento es el
+     *   <i>dropdown</i> y el segundo es el botón "Agregar al carrito".</li>
+     *   <li><b>driver</b>: El controlador de Selenium.</li>
+     *   <li><b>jsScript</b>: Código JavaScript a ejecutar para forzar un cambio.</li>
+     *   <li><b>timeoutInSeconds</b>: Tiempo máximo en segundos para esperar los elementos.</li>
+     * </ul>
+     *
+     * <h3>Funcionamiento:</h3>
+     * <ol>
+     *   <li>Intenta seleccionar una talla disponible (S, M o L).</li>
+     *   <li>Fuerza la actualización del <i>dropdown</i> usando JavaScript.</li>
+     *   <li>Verifica si el botón "Agregar al carrito" se habilitó tras cada intento.</li>
+     * </ol>
+     *
+     * <h3>Excepciones:</h3>
+     * <ul>
+     *   <li><b>TimeoutException</b>: Si los elementos no están disponibles en el tiempo límite.</li>
+     *   <li><b>Exception</b>: Si ocurre un error durante la interacción.</li>
+     * </ul>
+     *
+     * @param elements         Lista con el <i>dropdown</i> y el botón.
+     * @param driver           Controlador de Selenium.
+     * @param jsScript         Código JavaScript para forzar eventos.
+     * @param timeoutInSeconds Tiempo máximo de espera.
      */
     public void selectDropdownAndForceChange(
             List<WebElement> elements, WebDriver driver, String jsScript, int timeoutInSeconds) {
@@ -70,7 +98,15 @@ public class IfConditions {
             System.out.println("Ocurrió un error: " + e.getMessage());
         }
     }
-
+    /**
+     * <p>Selecciona una talla específica en el <i>dropdown</i> y simula eventos de cambio e input
+     * usando JavaScript.</p>
+     *
+     * @param tallaSelect      Objeto <b>Select</b> que representa el <i>dropdown</i>.
+     * @param talla            La talla a seleccionar (S, M o L).
+     * @param dropdownElement  Elemento <i>dropdown</i> en la interfaz.
+     * @param driver           Controlador de Selenium.
+     */
     private void seleccionarTalla(
             Select tallaSelect, String talla, WebElement dropdownElement, WebDriver driver) {
         try {
@@ -107,15 +143,32 @@ public class IfConditions {
             System.out.println("Error al seleccionar la talla '" + talla + "': " + e.getMessage());
         }
     }
-
     /**
-     * Click located element.
+     * <p>
+     * Hace clic en un botón tras verificar que un ícono de verificación sea visible.
+     * </p>
      *
-     * @param elements         the elements
-     * @param action           the action
-     * @param driver           the driver
-     * @param elementName      the element name
-     * @param timeoutInSeconds the timeout in seconds
+     * <h3>Parámetros:</h3>
+     * <ul>
+     *   <li><b>elements</b>: Lista de elementos, donde el primero es un ícono de verificación
+     *   y el segundo es un botón de "Proceed to checkout".</li>
+     *   <li><b>action</b>: Objeto <b>Actions</b> para realizar la interacción.</li>
+     *   <li><b>driver</b>: Controlador de Selenium.</li>
+     *   <li><b>elementName</b>: Nombre del elemento para <i>logging</i>.</li>
+     *   <li><b>timeoutInSeconds</b>: Tiempo máximo de espera.</li>
+     * </ul>
+     *
+     * <h3>Funcionamiento:</h3>
+     * <ol>
+     *   <li>Espera a que el ícono de verificación sea visible.</li>
+     *   <li>Hace clic en el botón "Proceed to checkout".</li>
+     * </ol>
+     *
+     * @param elements         Lista de elementos web.
+     * @param action           Objeto <b>Actions</b> de Selenium.
+     * @param driver           Controlador de Selenium.
+     * @param elementName      Nombre del elemento para <i>logging</i>.
+     * @param timeoutInSeconds Tiempo máximo de espera.
      */
     public void clickLocatedElement(List<WebElement> elements, Actions action,WebDriver driver ,String elementName, int timeoutInSeconds) {
         if (elements.size() >= 2) {

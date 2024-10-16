@@ -9,48 +9,70 @@ import pageObjects.*;
 import java.time.Duration;
 
 /**
- * The type Global test setup.
+ * Esta clase configura el entorno de pruebas para Selenium.
+ *
+ * === Descripción ===
+ * Inicializa el WebDriver y las páginas de la aplicación necesarias
+ * para ejecutar las pruebas. Contiene métodos que se ejecutan antes
+ * y después de cada prueba.
+ *
+ * === Métodos ===
+ * - abrirDriver: Configura y abre el navegador antes de cada prueba.
+ * - cerrarDriver: Cierra el navegador después de cada prueba.
+ *
+ * @author Trinitron
+ */
+
+/**
+ * Configura el entorno de pruebas para Selenium.
+ *
+ * <p>Esta clase se encarga de la inicialización del navegador, las páginas necesarias para las pruebas,
+ * y la gestión del ciclo de vida del WebDriver antes y después de cada prueba.</p>
+ *
+ * <h2>Métodos principales:</h2>
+ * <ul>
+ *   <li><b>abrirDriver:</b> Configura y abre el navegador antes de cada prueba.</li>
+ *   <li><b>cerrarDriver:</b> Cierra el navegador al finalizar cada prueba.</li>
+ * </ul>
+ *
+ * <h2>Atributos:</h2>
+ * <ul>
+ *   <li><b>firefoxDriver:</b> Instancia del WebDriver para controlar Firefox.</li>
+ *   <li><b>wait:</b> Objeto de espera explícita para sincronización en las pruebas.</li>
+ *   <li><b>paginaPrincipal:</b> Página de inicio de la tienda online.</li>
+ *   <li><b>paginaLogin:</b> Página para realizar el inicio de sesión.</li>
+ *   <li><b>paginaSummerDresses:</b> Página de vestidos de verano.</li>
+ *   <li><b>paginaPrintedSummerDress:</b> Página de un vestido específico.</li>
+ *   <li><b>paginaPopUpProductAddedShopping:</b> Pop-up de confirmación de producto añadido al carrito.</li>
+ *   <li><b>paginaShoppingCartSummary:</b> Página de resumen del carrito de compras.</li>
+ * </ul>
+ *
+ * @author Trinintron
+ * @see org.openqa.selenium.WebDriver
+ * @see pageObjects.PaginaPrincipal
+ * @see pageObjects.PaginaLogin
+ * @see pageObjects.PaginaSummerDresses
  */
 public class GlobalTestSetup {
-
-    /**
-     * The Wait.
-     */
-    /*Declaración del WebDriver para Firefox  (Pagina uno)*/
+    /** Objeto para gestionar las esperas explícitas. */
     protected WebDriverWait wait;
-    /**
-     * The Firefox driver.
-     */
+    /** Instancia del WebDriver para el navegador Firefox. */
     protected WebDriver firefoxDriver;
-    /**
-     * The constant TIMEOUT_IN_SECONDS.
-     */
+    /** Tiempo máximo de espera en segundos para las condiciones explícitas. */
     protected static final int TIMEOUT_IN_SECONDS = 10;
-    /**
-     * The Pagina principal.
-     */
-    PaginaPrincipal paginaPrincipal;
-    /**
-     * The Pagina login.
-     */
-    PaginaLogin paginaLogin;
-    /**
-     * The Pagina summer dresses.
-     */
-    PaginaSummerDresses paginaSummerDresses;
-    /**
-     * The Pagina printed summer dress.
-     */
-    PaginaPrintedSummerDress paginaPrintedSummerDress;
-    /**
-     * The Pagina pop up product added shopping.
-     */
-    PaginaPopUpProductAddedShopping paginaPopUpProductAddedShopping;
-    /**
-     * The Pagina shopping cart summary.
-     */
-    PaginaShoppingCartSummary paginaShoppingCartSummary;
 
+    // Instancias de las diferentes páginas del flujo de la aplicación.
+    PaginaPrincipal paginaPrincipal;
+    PaginaLogin paginaLogin;
+    PaginaSummerDresses paginaSummerDresses;
+    PaginaPrintedSummerDress paginaPrintedSummerDress;
+    PaginaPopUpProductAddedShopping paginaPopUpProductAddedShopping;
+    PaginaShoppingCartSummary paginaShoppingCartSummary;
+    /**
+     * Inicializa las páginas utilizadas en las pruebas.
+     *
+     * @param driver El WebDriver usado para controlar el navegador.
+     */
     private void inicializarPaginas(WebDriver driver){
     paginaPrincipal = new PaginaPrincipal(driver);
     paginaLogin = new PaginaLogin(driver);
@@ -59,28 +81,20 @@ public class GlobalTestSetup {
     paginaPopUpProductAddedShopping = new PaginaPopUpProductAddedShopping(driver);
     paginaShoppingCartSummary = new PaginaShoppingCartSummary(driver);
     }
-
     /**
-     * Abrir driver.
+     * Configura y abre el navegador Firefox antes de cada prueba.
      */
-    /*Método que se ejecuta antes de cada test para inicializar el driver de Firefox*/
     @Before
     public void abrirDriver(){
-        /*Encontrar la Ruta del geckodriver*/
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver");
-        /*Configurar opciones para el navegador Firefox.*/
         FirefoxOptions options = new FirefoxOptions();
-        /*Inicializa el WebDriver con las opciones configuradas*/
         firefoxDriver = new FirefoxDriver(options);
-        /*Configura un tiempo de espera implícito para encontrar elementos*/
         wait =  new WebDriverWait(firefoxDriver, Duration.ofSeconds(TIMEOUT_IN_SECONDS));
         inicializarPaginas(firefoxDriver);
     }
-
     /**
-     * Cerrar driver.
+     * Cierra el navegador después de cada prueba.
      */
-    /*Cierra el navegador y finaliza la sesión de WebDriver después de que la prueba haya terminado */
   @After
   public void cerrarDriver(){
         firefoxDriver.quit();
